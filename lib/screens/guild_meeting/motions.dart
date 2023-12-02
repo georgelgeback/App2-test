@@ -138,9 +138,9 @@ class _MotionsPageState extends State<MotionsPage>
   }
 
   Widget _generateDocumentTile(
-      ElectionDocument motion, ElectionDocument? motion_answer) {
+      ElectionDocument motion, ElectionDocument? motionAnswer) {
     return Column(children: [
-      MotionCard(motion: motion, motionResponse: motion_answer),
+      MotionCard(motion: motion, motionResponse: motionAnswer),
     ]);
   }
 }

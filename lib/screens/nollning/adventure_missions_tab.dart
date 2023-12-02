@@ -239,7 +239,7 @@ class _AdventureMissionsTabState extends State<AdventureMissionsTab> {
         });
   }
 
-  Future<int?> _variablePointsDialog(BuildContext context, int max_points) {
+  Future<int?> _variablePointsDialog(BuildContext context, int maxPoints) {
     final _formKey = GlobalKey<FormState>();
     TextEditingController _textFieldController = TextEditingController();
     int? points;
@@ -248,12 +248,12 @@ class _AdventureMissionsTabState extends State<AdventureMissionsTab> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("${t.introductionPoints}(1-$max_points)"),
+          title: Text("${t.introductionPoints}(1-$maxPoints)"),
           content: TextField(
             keyboardType: TextInputType.number,
             controller: _textFieldController,
             decoration: InputDecoration(
-              hintText: "1-$max_points",
+              hintText: "1-$maxPoints",
             ),
           ),
           actions: [
@@ -266,7 +266,7 @@ class _AdventureMissionsTabState extends State<AdventureMissionsTab> {
             TextButton(
               child: Text('OK'),
               onPressed: () {
-                if (_isValidInput(_textFieldController.text, max_points)) {
+                if (_isValidInput(_textFieldController.text, maxPoints)) {
                   points = int.parse(_textFieldController.text);
                   Navigator.pop(context, points);
                 }
@@ -303,11 +303,11 @@ class _AdventureMissionsTabState extends State<AdventureMissionsTab> {
         });
   }
 
-  bool _isValidInput(String value, int max_points) {
+  bool _isValidInput(String value, int maxPoints) {
     if (value.isNotEmpty) {
       try {
         int number = int.parse(value);
-        return (number > 0 && number <= max_points);
+        return (number > 0 && number <= maxPoints);
       } on FormatException {
         // not even an int
         return false;
