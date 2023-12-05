@@ -121,7 +121,7 @@ class _ContentWrapperState extends State<ContentWrapper>
           children: [
             IconButton(
               icon: Image(
-                image: AssetImage("assets/img/f_logo_black.png"),
+                image: AssetImage("assets/img/f_logo_black.png"), //TODO: Change color depending on theme
                 width: 64,
               ),
               onPressed: () => {
@@ -205,6 +205,7 @@ class _ContentWrapperState extends State<ContentWrapper>
             }).toList())),
           ])),
           bottomNavigationBar: BottomAppBar(
+            color: Theme.of(context).colorScheme.primary,
             shape: CircularNotchedRectangle(),
             child: FsekAppBar(
               currentIndex: _currentIndex,
@@ -213,8 +214,6 @@ class _ContentWrapperState extends State<ContentWrapper>
                 setState(() {
                   _currentIndex = index ?? 0;
                 });
-                locator<ThemeService>().theme = fsekTheme;
-                locator<ThemeService>().backgroundColors = fsekBackground;
                 widget.onNavigation!.add(widget
                     .navbarDestinations[_currentIndex].widget.runtimeType);
               },
@@ -225,6 +224,7 @@ class _ContentWrapperState extends State<ContentWrapper>
                       text: indexToTitle[destination.index]);
                 }).toList()
               ],
+              // TODO: Make this work with different colors for the bottom app bar
               selectedColor: Colors.white,
               color: Colors.black,
             ),

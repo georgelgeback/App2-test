@@ -9,6 +9,7 @@ class User {
   String? firstname;
   String? lastname;
   int? start_year;
+  bool? dark_mode;
   String? provider;
   List<String>? food_preferences;
   String? avatar_file_name;

@@ -95,6 +95,7 @@ class FsekAppBarState extends State<FsekAppBar> {
     // items.insert(items.length >> 1, _buildMiddleTabItem());
 
     return BottomAppBar(
+        color: Theme.of(context).colorScheme.primary,
         shape: widget.notchedShape,
         child: Stack(
           clipBehavior: Clip.none,

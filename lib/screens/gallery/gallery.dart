@@ -7,6 +7,7 @@ import 'package:fsek_mobile/services/gallery.service.dart';
 import 'package:fsek_mobile/services/service_locator.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
 
 class GalleryPage extends StatefulWidget {
   @override
@@ -30,15 +31,17 @@ class _GalleryPageState extends State<GalleryPage> {
     var t = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: AppBar(
+        backgroundColor: locator<ThemeService>().theme.colorScheme.primary,
+        foregroundColor: locator<ThemeService>().theme.textTheme.titleLarge?.color,
           title: Text(
             t.galleryTitle,
           ),
         ),
         body: Column(
-            //Make dropdown prettier mayb :
+            //Make dropdown prettier maybe:
             children: [
               Container(
-                  decoration: BoxDecoration(color: Colors.grey[50]),
+                  decoration: BoxDecoration(color: locator<ThemeService>().theme.colorScheme.surface),
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: DropdownButton(
                     elevation: 2,

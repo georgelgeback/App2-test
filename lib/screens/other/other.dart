@@ -12,6 +12,8 @@ import 'package:fsek_mobile/services/service_locator.dart';
 import 'package:fsek_mobile/util/authentication/authentication_bloc.dart';
 import 'package:fsek_mobile/util/authentication/authentication_event.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
+import 'package:fsek_mobile/screens/settings/theme_settings.dart';
 
 import 'fap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,7 +31,7 @@ class OtherContent extends StatelessWidget {
     var t = AppLocalizations.of(context)!;
     categories = [t.otherSongbook, t.otherGallery, t.otherCafe];
     about = [t.otherAboutGuild, t.otherFap];
-    settings = [t.otherAccount, t.otherLanguage];
+    settings = [t.otherAccount, t.otherLanguage, t.otherTheme];
     support = [t.otherContact, t.otherAnon];
     /* I am so sorry for this Teo */
     routeMap = {
@@ -40,6 +42,7 @@ class OtherContent extends StatelessWidget {
       "The F-app": FapPage(),
       "Account": SettingsPage(),
       "Language": LanguageSettingsPage(),
+      "Theme": ThemeSettingsPage(),
       "Contact": ContactPage(),
       "Anonymous contact page": Container(),
       "Sångbok": SongbookPage(),
@@ -48,6 +51,7 @@ class OtherContent extends StatelessWidget {
       "F-appen": FapPage(),
       "Konto": SettingsPage(),
       "Språk": LanguageSettingsPage(),
+      "Tema": ThemeSettingsPage(),
       "Kontakt": ContactPage(),
       "Anonym kontaktsida": Container(),
     };
@@ -77,10 +81,10 @@ class OtherContent extends StatelessWidget {
                 margin: EdgeInsets.all(2),
                 child: InkWell(
                     child: ListTile(
-                  tileColor: Colors.red[600],
+                  tileColor: locator<ThemeService>().theme.colorScheme.error,
                   title: Text(
                     t.otherLogOut,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: locator<ThemeService>().theme.colorScheme.onError),
                   ),
                   onTap: () async {
                     bool? logout = await _confirmLogout(context);
@@ -132,11 +136,13 @@ class OtherContent extends StatelessWidget {
         margin: EdgeInsets.all(2),
         child: InkWell(
             child: ListTile(
+              tileColor: locator<ThemeService>().theme.colorScheme.surface,
+              textColor: locator<ThemeService>().theme.textTheme.labelMedium?.color,
           title: Text(tileText),
           onTap: () => goToTilePage(tileText, context),
           trailing: tileText != t.otherAnon
               ? SizedBox.shrink()
-              : Icon(Icons.open_in_new_rounded),
+              : Icon(Icons.open_in_new_rounded, color: locator<ThemeService>().theme.colorScheme.onSurface),
         )),
       ));
     }
@@ -155,6 +161,6 @@ class OtherContent extends StatelessWidget {
   }
 
   TextStyle _style() {
-    return TextStyle(fontWeight: FontWeight.bold);
+    return TextStyle(fontWeight: FontWeight.bold, color: locator<ThemeService>().theme.textTheme.titleMedium?.color);
   }
 }

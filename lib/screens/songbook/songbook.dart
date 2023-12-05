@@ -6,6 +6,8 @@ import 'package:fsek_mobile/services/service_locator.dart';
 import 'package:fsek_mobile/services/song.service.dart';
 import 'package:fsek_mobile/services/songbook.service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
+import 'package:fsek_mobile/themes.dart';
 
 class SongbookPage extends StatefulWidget {
   @override
@@ -56,13 +58,15 @@ class _SongbookPageState extends State<SongbookPage> with TickerProviderStateMix
     return allSongs == []
         ? Scaffold(
             appBar: AppBar(title: Text(t.songbookSongbook)),
-            body: Center(child: CircularProgressIndicator(color: Colors.orange[600])))
+            body: Center(child: CircularProgressIndicator(color: locator<ThemeService>().theme.colorScheme.onBackground)))
         : GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: AnimatedBuilder(
                 animation: animation,
                 child: Scaffold(
-                  appBar: AppBar(title: Text(t.songbookSongbook)),
+                  appBar: AppBar(title: Text(t.songbookSongbook),
+                      backgroundColor: locator<ThemeService>().theme.colorScheme.primary,
+                      foregroundColor: locator<ThemeService>().theme.textTheme.titleLarge?.color),
                   body: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -80,18 +84,18 @@ class _SongbookPageState extends State<SongbookPage> with TickerProviderStateMix
                                   ? IconButton(
                                       icon: Icon(
                                         Icons.arrow_back,
-                                        color: Colors.grey[800],
+                                        color: locator<ThemeService>().theme.colorScheme.onPrimary,
                                       ),
                                       onPressed: () => FocusScope.of(context).unfocus())
                                   : Icon(
                                       Icons.search,
-                                      color: Colors.grey[800],
+                                      color: locator<ThemeService>().theme.colorScheme.onPrimary,
                                     ),
                               hintText: t.songbookSearch,
                               suffixIcon: _controller.text.length > 0
                                   ? IconButton(
                                       icon: Icon(Icons.clear),
-                                      color: Colors.grey[800],
+                                      color: locator<ThemeService>().theme.colorScheme.onPrimary,
                                       onPressed: () => setState(() {
                                             _controller.clear();
                                             FocusScope.of(context).unfocus();
@@ -139,11 +143,11 @@ class _SongbookPageState extends State<SongbookPage> with TickerProviderStateMix
     if (song.title![0] != initChar) {
       initChar = song.title![0];
       index.add(Container(
-        decoration: BoxDecoration(color: Colors.grey[300]),
+        decoration: BoxDecoration(color: locator<ThemeService>().theme.colorScheme.tertiary),
         child: ListTile(
           title: Text(
             initChar,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.labelMedium?.color),
           ),
         ),
       ));
@@ -154,11 +158,11 @@ class _SongbookPageState extends State<SongbookPage> with TickerProviderStateMix
             Container(
                 decoration: BoxDecoration(
                     border: Border(
-                  bottom: BorderSide(color: Colors.grey[400]!),
+                  bottom: BorderSide(color: locator<ThemeService>().theme.colorScheme.tertiary),
                 )),
                 child: InkWell(
                   onTap: () => openSong(song.id!),
-                  child: ListTile(title: Text(song.title == null ? "" : song.title!)),
+                  child: ListTile(title: Text(song.title == null ? "" : song.title!, style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color))),
                 ))
           ],
     );

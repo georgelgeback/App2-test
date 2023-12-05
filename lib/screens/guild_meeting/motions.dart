@@ -55,13 +55,19 @@ class _MotionsPageState extends State<MotionsPage>
     var t = AppLocalizations.of(context)!;
     return listEquals(allDocuments, [])
         ? Scaffold(
-            appBar: AppBar(title: Text(t.motionsPageTitle)),
+            appBar: AppBar(
+                title: Text(t.motionsPageTitle),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).textTheme.titleLarge?.color),
             body: Center(
-                child: CircularProgressIndicator(color: Colors.orange[600])))
+                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onBackground)))
         : GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
-              appBar: AppBar(title: Text(t.motionsPageTitle)),
+              appBar: AppBar(
+                title: Text(t.motionsPageTitle),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).textTheme.titleLarge?.color),
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -73,7 +79,7 @@ class _MotionsPageState extends State<MotionsPage>
                         searchFocus = focus;
                       });
                     },
-                    child: TextField(
+                    child: TextField( //TODO: Change the background color of this
                       controller: _controller,
                       decoration: InputDecoration(
                           prefixIcon: searchFocus

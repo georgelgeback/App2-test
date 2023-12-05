@@ -38,7 +38,10 @@ class _CandidacyPosterPageState extends State<CandidacyPosterPage> {
     if (candidacyPoster == null) {
       // exists no poster with the given name
       return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
+          ),
           body: Center(child: Text(t.noCandidacyPoster, style: TextStyle(fontStyle: FontStyle.italic))));
     } else {
       return PdfPage(url: candidacyPoster.url!, title: candidacyPoster.document_name!);

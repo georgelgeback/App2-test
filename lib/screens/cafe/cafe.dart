@@ -113,6 +113,8 @@ class _CafePageState extends State<CafePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Hilbert Café"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
       ),
       body: RefreshIndicator(
         onRefresh: () => _onRefresh(),

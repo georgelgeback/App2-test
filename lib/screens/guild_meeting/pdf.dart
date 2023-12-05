@@ -11,6 +11,8 @@ class PdfPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
       ),
       body: PDF(
         enableSwipe: true,

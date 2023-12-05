@@ -43,6 +43,8 @@ class _FapPageState extends State<FapPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(t.fapAbout),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -79,13 +81,13 @@ class _FapPageState extends State<FapPage> {
               height: 20,
             ),
             RichText(
-              text: TextSpan(
-                style: TextStyle(color: Colors.black),
+              text: TextSpan( //TODO: Get the colors working for both modes over here
+                style: TextStyle(color: Colors.grey[850]),
                 children: <TextSpan>[
                   TextSpan(text: t.fapInspired),
                   TextSpan(
                     text: t.fapDev,
-                    style: TextStyle(color: Colors.grey[700]),
+                    style: TextStyle(color: Colors.grey[800]),
                     recognizer: fredmansTap,
                   ),
                 ],

@@ -10,6 +10,7 @@
     "notifications" : "Notifications",
     "other" : "Other",
     "introduction" : "Nollning",
+    "theme" : "Theme",
 
     "eventPriority": "Priority:",
     "eventOther": "Other",
@@ -100,6 +101,7 @@
     "otherFap": "The F-app",
     "otherAccount": "Account",
     "otherLanguage": "Language",
+    "otherTheme": "Theme",
     "otherContact": "Contact",
     "otherAnon": "Anonymous contact page",
     "otherAbout": "About",

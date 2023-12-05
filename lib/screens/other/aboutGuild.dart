@@ -8,6 +8,8 @@ class AboutGuildPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(t.aboutGuildTitle),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
         ),
         body: Container(
             padding: EdgeInsets.all(8),

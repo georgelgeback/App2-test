@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fsek_mobile/services/service_locator.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
 
 class AppBackground extends StatefulWidget {
   AppBackground({Key? key,
@@ -25,7 +27,7 @@ class _AppBackgroundState extends State<AppBackground> {
     return Stack(children: [
       Container(
         height: MediaQuery.of(context).size.height,
-        color: const Color(0xFFF1F1F1),
+        color: locator<ThemeService>().theme.colorScheme.background,
       ),
       ClipPath(
         clipper: TopWaveClipper(),

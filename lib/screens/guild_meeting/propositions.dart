@@ -50,13 +50,19 @@ class _PropositionsPageState extends State<PropositionsPage>
     var t = AppLocalizations.of(context)!;
     return listEquals(allDocuments, [])
         ? Scaffold(
-            appBar: AppBar(title: Text(t.propositionsPageTitle)),
+            appBar: AppBar(
+                title: Text(t.propositionsPageTitle),
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).textTheme.titleLarge?.color),
             body: Center(
-                child: CircularProgressIndicator(color: Colors.orange[600])))
+                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onBackground)))
         : GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
-              appBar: AppBar(title: Text(t.propositionsPageTitle)),
+              appBar: AppBar(
+                  title: Text(t.propositionsPageTitle),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).textTheme.titleLarge?.color),
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

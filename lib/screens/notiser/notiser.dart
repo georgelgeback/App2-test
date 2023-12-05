@@ -6,6 +6,7 @@ import 'package:fsek_mobile/services/notiser.service.dart';
 import 'package:fsek_mobile/services/service_locator.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -19,7 +20,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
     "p": Style(
         padding: HtmlPaddings.zero,
         margin: Margins.zero,
-        fontSize: FontSize(17))
+        fontSize: FontSize(17),
+        color: locator<ThemeService>().theme.textTheme.titleMedium?.color)
   };
 
   final PagingController<int, Notis> _pagingController =
@@ -45,7 +47,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
           if (notis.data == null) return Container();
 
           return Card(
-              color: notis.visited ?? false ? Colors.white : Colors.orange[200],
+              color: notis.visited ?? false ? locator<ThemeService>().theme.colorScheme.surface : locator<ThemeService>().theme.colorScheme.surfaceTint,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
@@ -59,17 +61,18 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         ),
                         SizedBox(height: 4),
                         notis.data?["extra"] != null
-                            ? Text(notis.data!["extra"]!)
+                            ? Text(notis.data!["extra"]!, style: TextStyle(color: locator<ThemeService>().theme.textTheme.bodyMedium?.color))
                             : Container(),
                         Text(t.notificationsSent +
                             (DateFormat('EEE d LLL y kk:mm')
-                                .format(notis.created_at!))),
+                                .format(notis.created_at!)),
+                            style: TextStyle(color: locator<ThemeService>().theme.textTheme.bodyMedium?.color)),
                       ]),
                 ),
               ));
         }, noItemsFoundIndicatorBuilder: (context) {
           return Container(
-              height: 400,
+              height: 150,
               child: Center(
                   child: Text(t.notificationsNone,
                       style: Theme.of(context).textTheme.titleLarge)));

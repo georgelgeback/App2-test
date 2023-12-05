@@ -43,8 +43,9 @@ class _ContactPageState extends State<ContactPage> {
     if (contacts!.isEmpty) {
       return Scaffold(
           appBar: AppBar(
-              title: Text(t.contactContact,
-                  style: Theme.of(context).textTheme.headlineSmall)),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
+              title: Text(t.contactContact)),
           body: Center(
               child: CircularProgressIndicator(color: Colors.orange[600])));
     }
@@ -61,8 +62,9 @@ class _ContactPageState extends State<ContactPage> {
     }
     return Scaffold(
         appBar: AppBar(
-            title: Text(t.contactContact,
-                style: Theme.of(context).textTheme.headlineSmall)),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
+            title: Text(t.contactContact)),
         //Bilder och skit kommer senare
         body: SingleChildScrollView(
           child: Column(
@@ -72,7 +74,7 @@ class _ContactPageState extends State<ContactPage> {
                 width: double.infinity,
                 height: 200,
                 child: Container(
-                  decoration: BoxDecoration(color: Colors.orange[600]),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary),
                   child: Stack(children: <Widget>[
                     Center(
                       child: SizedBox(
@@ -86,14 +88,14 @@ class _ContactPageState extends State<ContactPage> {
                       child: Padding(
                           padding: EdgeInsets.all(8),
                           child: Text(currentContact!.name!,
-                              style: Theme.of(context).textTheme.titleMedium)),
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Theme.of(context).colorScheme.onSecondary))),
                     ),
                   ]),
                 ),
               ),
               Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 24, 8, 8),
                     child: Text(t.contactPerson,
@@ -117,7 +119,7 @@ class _ContactPageState extends State<ContactPage> {
               ),
               Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 24, 8, 4),
                     child: Text(t.contactDescription,
@@ -131,7 +133,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
               Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 24, 8, 4),
                     child: Text(t.contactInfo,
@@ -168,7 +170,7 @@ class _ContactPageState extends State<ContactPage> {
               ),
               Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(color: Colors.grey[200]),
+                  decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8, 24, 8, 4),
                     child: Text(t.contactMessage,
@@ -182,8 +184,11 @@ class _ContactPageState extends State<ContactPage> {
                     autofocus: false,
                     controller: controller,
                     maxLines: 4,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     decoration:
-                        InputDecoration(hintText: t.contactWriteMessage),
+                        InputDecoration(hintText: t.contactWriteMessage,
+                            // You could change the color based on theme but this just works
+                            hintStyle: TextStyle(color: Colors.grey)),
                     onChanged: (input) => localMessage = input,
                   ),
                 ),
@@ -191,13 +196,13 @@ class _ContactPageState extends State<ContactPage> {
               Container(
                 width: double.infinity,
                 height: 30,
-                decoration: BoxDecoration(color: Colors.grey[200]),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
               ),
               Container(
                   width: double.infinity,
                   height: 50,
                   child: Ink(
-                    decoration: BoxDecoration(color: Colors.orange[600]),
+                    decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary),
                     child: InkWell(
                         child: Center(
                             child: Text(
@@ -209,7 +214,7 @@ class _ContactPageState extends State<ContactPage> {
               Container(
                 width: double.infinity,
                 height: 30,
-                decoration: BoxDecoration(color: Colors.grey[200]),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
               ),
             ],
           ),
@@ -269,6 +274,8 @@ class _ContactPageState extends State<ContactPage> {
   Widget Function(BuildContext) _popUp(String title, String text) {
     return (BuildContext contact) => SimpleDialog(
           title: Text(title, style: Theme.of(context).textTheme.headlineSmall),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Colors.transparent,
           children: [
             Center(
               child: Padding(
@@ -280,7 +287,7 @@ class _ContactPageState extends State<ContactPage> {
             Align(
               alignment: Alignment.bottomRight,
               child: IconButton(
-                  icon: Icon(Icons.check, color: Colors.grey[800]),
+                  icon: Icon(Icons.check, color: Theme.of(context).colorScheme.inverseSurface),
                   onPressed: () => Navigator.pop(context)),
             )
           ],

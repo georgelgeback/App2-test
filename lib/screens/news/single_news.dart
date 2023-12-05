@@ -16,7 +16,8 @@ class SingleNewsPage extends StatelessWidget {
     var t = AppLocalizations.of(context)!;
     if (translated) {
       return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).textTheme.titleLarge?.color),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

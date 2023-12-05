@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fsek_mobile/models/documents/election_document.dart';
 import 'package:fsek_mobile/screens/guild_meeting/pdf.dart';
+import 'package:fsek_mobile/services/service_locator.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
 
 class PropositionCard extends StatefulWidget {
   final ElectionDocument? proposition;
@@ -14,9 +16,9 @@ class PropositionCard extends StatefulWidget {
 }
 
 class _PropositionCardState extends State<PropositionCard> {
-  Color buttonColor = Colors.orange[700]!.withOpacity(0.3);
-  Color backgroundColor = Colors.orange[700]!.withOpacity(0.2);
-  Color bottomColor = Colors.grey[400]!;
+  Color buttonColor = locator<ThemeService>().theme.colorScheme.primary.withOpacity(0.4);
+  Color backgroundColor = locator<ThemeService>().theme.colorScheme.secondary.withOpacity(0.3);
+  Color bottomColor = locator<ThemeService>().theme.colorScheme.onSecondary.withOpacity(0.7);
 
   @override
   void initState() {

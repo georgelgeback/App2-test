@@ -42,26 +42,28 @@ class _NewsPageState extends State<NewsPage> {
             builderDelegate: PagedChildBuilderDelegate<News>(
                 itemBuilder: (context, news, index) {
               return Card(
+                  color: Theme.of(context).colorScheme.surface,
+                  surfaceTintColor: Colors.transparent,
                   child: InkWell(
                       onTap: () => openNews(news),
                       child: ListTile(
                           title: Text((news.title == "" || news.title == null)
                               ? t.homeTitleUntranslated
-                              : news.title!),
+                              : news.title!, style: TextStyle(color: Theme.of(context).textTheme.titleMedium?.color)),
                           subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(news.user!.name!),
+                                Text(news.user!.name!, style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color)),
                                 SizedBox(height: 6),
                                 Text(
                                   news.created_at.toString().substring(0, 16),
-                                  style: TextStyle(fontSize: 12),
+                                  style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodyMedium?.color),
                                 )
                               ]),
                           isThreeLine: true,
                           trailing: (news.is_pinned ?? false)
                               ? Icon(Icons.push_pin_outlined,
-                                  color: Colors.orange[600])
+                                  color: Theme.of(context).colorScheme.inverseSurface)
                               : SizedBox.shrink())));
             }, noItemsFoundIndicatorBuilder: (context) {
               return Container(

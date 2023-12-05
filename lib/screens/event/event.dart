@@ -743,6 +743,8 @@ class _EventPageState extends State<EventPage> {
       return Scaffold(
         appBar: AppBar(
           title: Text(t.eventTitle),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
         ),
       );
     }
@@ -750,6 +752,8 @@ class _EventPageState extends State<EventPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(t.eventTitle),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).textTheme.titleLarge?.color
       ),
       body: Container(
         width: double.infinity,

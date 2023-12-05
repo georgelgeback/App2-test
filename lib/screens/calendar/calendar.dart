@@ -40,6 +40,8 @@ class _CalendarState extends State<Calendar> {
     String locale = Localizations.localeOf(context).toString();
     return Container(
       child: Card(
+        color: Theme.of(context).colorScheme.surface,
+        surfaceTintColor: Colors.transparent,
         child: InkWell(
           onTap: () => openEventPage(event),
           child: Container(
@@ -53,7 +55,7 @@ class _CalendarState extends State<Calendar> {
                     event.title ?? "no title",
                     style: TextStyle(
                       fontSize: 20,
-                      color: Colors.orange[600],
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                     textAlign: TextAlign.left,
                   ),
@@ -119,14 +121,17 @@ class _CalendarState extends State<Calendar> {
     }
     return Container(
       height: MediaQuery.of(context).size.height,
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.background,
       child: RefreshIndicator(
         onRefresh: () => _onRefresh(),
         child: ListView(
           children: [
             Column(
               children: [
-                TableCalendar(
+                TableCalendar( //TODO: Proper colors for the day abbreviations
+                  calendarStyle: CalendarStyle(markerDecoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onBackground,
+                      shape: BoxShape.circle)),
                   availableGestures: AvailableGestures.horizontalSwipe,
                   locale: locale,
                   startingDayOfWeek: StartingDayOfWeek.monday,
@@ -157,13 +162,13 @@ class _CalendarState extends State<Calendar> {
                   alignment: Alignment.centerLeft,
                   width: double.infinity,
                   height: 20,
-                  color: Colors.orange[600],
+                  color: Theme.of(context).colorScheme.secondary,
                   child: Text(
                     /* It's too late to write pretty code, take this formatting space*/
                     "  " + DateFormat("MMMMEEEEd", locale).format(_selectedDay),
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
                   ),
                 ),

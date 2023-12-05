@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class ThemeService {
   ThemeData theme = ThemeData(
-    brightness: Brightness.light,
     primaryColor: Colors.orange[600],
   );
   List<Color> backgroundColors = [

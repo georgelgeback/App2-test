@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fsek_mobile/models/documents/election_document.dart';
 import 'package:fsek_mobile/screens/guild_meeting/pdf.dart';
+import 'package:fsek_mobile/services/service_locator.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
 
 class MotionCard extends StatefulWidget {
   final ElectionDocument? motion;
@@ -15,9 +17,9 @@ class MotionCard extends StatefulWidget {
 }
 
 class _MotionCardState extends State<MotionCard> {
-  Color button_color = Colors.orange[700]!.withOpacity(0.3);
-  Color background_color = Colors.orange[700]!.withOpacity(0.2);
-  Color bottom_color = Colors.grey[400]!;
+  Color button_color = locator<ThemeService>().theme.colorScheme.primary.withOpacity(0.4);
+  Color background_color = locator<ThemeService>().theme.colorScheme.secondary.withOpacity(0.3);
+  Color bottom_color = locator<ThemeService>().theme.colorScheme.onSecondary.withOpacity(0.7);
 
   @override
   void initState() {

@@ -37,17 +37,19 @@ class LanguageSettingsState<LanguageSettingsPage> extends State {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.language),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
       ),
       body: Column(
         children: [
           RadioListTile<String>(
-            title: Text("Svenska"),
+            title: Text("Svenska", style: TextStyle(color: Theme.of(context).textTheme.titleMedium?.color)),
             value: 'sv',
             groupValue: _locale,
             onChanged: (value) => _setLocale(context, value),
           ),
           RadioListTile<String>(
-            title: Text("English"),
+            title: Text("English", style: TextStyle(color: Theme.of(context).textTheme.titleMedium?.color)),
             value: 'en',
             groupValue: _locale,
             onChanged: (value) => _setLocale(context, value),

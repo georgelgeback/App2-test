@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fsek_mobile/models/songbook/song.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fsek_mobile/services/service_locator.dart';
+import 'package:fsek_mobile/services/theme.service.dart';
 
 class SongPage extends StatelessWidget {
   const SongPage({Key? key, required this.song}) : super(key: key);
@@ -12,13 +14,16 @@ class SongPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var t = AppLocalizations.of(context)!;
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
+        ),
         body: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
             width: double.infinity,
-            decoration: BoxDecoration(color: Colors.grey[200]),
+            decoration: BoxDecoration(color: locator<ThemeService>().theme.colorScheme.tertiary),
             padding: EdgeInsets.fromLTRB(12, 12, 12, 12),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -26,7 +31,7 @@ class SongPage extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(0, 2, 0, 16),
                 child: Text(
                   song.title!,
-                  style: TextStyle(color: Colors.orange[600], fontSize: 24),
+                  style: TextStyle(color: locator<ThemeService>().theme.colorScheme.onTertiary, fontSize: 24),
                 ),
               ),
               song.melody != null && song.melody != ""
@@ -36,10 +41,10 @@ class SongPage extends StatelessWidget {
                         text: TextSpan(children: [
                           TextSpan(
                               text: "${t.songbookMelody}: ",
-                              style: TextStyle(color: Colors.orange[600])),
+                              style: TextStyle(color: locator<ThemeService>().theme.colorScheme.onTertiary)),
                           TextSpan(
                               text: song.melody!,
-                              style: TextStyle(color: Colors.black))
+                              style: TextStyle(color: locator<ThemeService>().theme.textTheme.labelMedium?.color))
                         ]),
                       ),
                     )
@@ -51,10 +56,10 @@ class SongPage extends StatelessWidget {
                         text: TextSpan(children: [
                           TextSpan(
                               text: "${t.songbookAuthor}: ",
-                              style: TextStyle(color: Colors.orange[600])),
+                              style: TextStyle(color: locator<ThemeService>().theme.colorScheme.onTertiary)),
                           TextSpan(
                               text: song.author!,
-                              style: TextStyle(color: Colors.black))
+                              style: TextStyle(color: locator<ThemeService>().theme.textTheme.labelMedium?.color))
                         ]),
                       ),
                     )
@@ -66,7 +71,7 @@ class SongPage extends StatelessWidget {
             child: Html(
               data: song.content!,
               style: {
-                "p": Style(fontSize: FontSize(16), lineHeight: LineHeight(1.5))
+                "p": Style(fontSize: FontSize(16), lineHeight: LineHeight(1.5), color: locator<ThemeService>().theme.textTheme.bodyMedium?.color)
               },
             ),
           )

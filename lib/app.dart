@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fsek_mobile/content_wrapper.dart';
 import 'package:fsek_mobile/services/abstract.service.dart';
 import 'package:fsek_mobile/services/theme.service.dart';
+import 'package:fsek_mobile/themes.dart';
 import 'package:fsek_mobile/util/PushNotificationsManager.dart';
 import 'package:fsek_mobile/util/app_exception.dart';
 import 'package:fsek_mobile/util/storage_wrapper.dart';
@@ -42,6 +43,7 @@ class _FsekMobileAppState extends State<FsekMobileApp> {
   TokenStorageWrapper? _storage;
   Locale? _locale;
   String? localeName;
+  ThemeMode? _themeMode;
   int backgroundIndex = 1;
 
   User? _user;
@@ -60,9 +62,29 @@ class _FsekMobileAppState extends State<FsekMobileApp> {
     });
   }
 
+  void setTheme(ThemeMode themeMode) {
+    setState(() {
+      this._themeMode = themeMode;
+      // Set the theme based on the mode
+      // There's certainly a better way to do this, I just don't care
+      if (themeMode == ThemeMode.light) {
+        locator<ThemeService>().theme = fsekTheme;
+        locator<ThemeService>().backgroundColors = fsekBackground;
+      } else if (themeMode == ThemeMode.dark){
+        locator<ThemeService>().theme = fsekThemeDark;
+        locator<ThemeService>().backgroundColors = fsekBackgroundDark;
+      }
+      /* Cache the theme mode */
+      if (_storage != null) {
+        _storage!.write(key: 'cached-theme-mode', value: _themeMode);
+      }
+    });
+  }
+
   @override
   void initState() {
     _locale = Locale('sv', '');
+    _themeMode = ThemeMode.light;
     _userService = locator<UserService>();
     //checkApiVersion();
     _storage = locator<TokenStorageWrapper>();
@@ -73,17 +95,27 @@ class _FsekMobileAppState extends State<FsekMobileApp> {
         setState(() {
           _userService!.getUser().then((value) => setState(() {
                 this._user = value;
-
                 setupPushNotifications();
               }));
         });
       }
-      /* If we have saved a language setting we use that*/
+      /* If we have saved a language setting and theme mode we use that*/
       if (_storage != null) {
         String? cachedLocale = await _storage!.read('cached-locale');
         if (cachedLocale != null) {
           setLocale(cachedLocale);
         }
+        String? cachedThemeMode = await _storage!.read('cached-theme-mode');
+        // The theme
+        ThemeMode typeThemeMode;
+        // Tries to set the enum ThemeMode based on the stored string
+        if (cachedThemeMode == "ThemeMode.dark"){
+          typeThemeMode = ThemeMode.dark;
+        } else {
+          // If the cached value is null or anything else, default to light mode
+          typeThemeMode = ThemeMode.light;
+        }
+        setTheme(typeThemeMode);
       }
     });
     // Change background-listener
@@ -125,6 +157,7 @@ class _FsekMobileAppState extends State<FsekMobileApp> {
           locale: _locale,
           navigatorKey: locator<NavigationService>().navigatorKey,
           theme: locator<ThemeService>().theme,
+          themeMode: _themeMode,
           home: Stack(children: [
             AppBackground(
                 backgroundColors: locator<ThemeService>().backgroundColors),

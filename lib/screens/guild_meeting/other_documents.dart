@@ -12,7 +12,7 @@ class OtherDocumentsPage extends StatefulWidget {
 }
 
 class _OtherDocumentsPageState extends State<OtherDocumentsPage> {
-  List<ElectionDocument>? otherList; // Håller alla "övriga" dokument
+  List<ElectionDocument>? otherList; // Contains all "other" documents
 
   @override
   void initState() {
@@ -26,13 +26,16 @@ class _OtherDocumentsPageState extends State<OtherDocumentsPage> {
   Widget build(BuildContext context) {
     var t = AppLocalizations.of(context)!;
     return Scaffold(
-        appBar: AppBar(title: Text(t.otherDocuments)),
+        appBar: AppBar(
+            title: Text(t.otherDocuments),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).textTheme.titleLarge?.color),
         body: otherList == null
             ? Center(
-                child: CircularProgressIndicator(color: Colors.orange[600]))
+                child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onBackground))
             : !listEquals([],
-                    otherList) //listEquals är mycket viktigt, annars jämför den pointers
-                ? Column(//Det finns övriga dokument
+                    otherList) //listEquals is very important, otherwise it compares pointers
+                ? Column(// There are other documents
                     children: [
                     Expanded(
                         child: ListView(
@@ -45,7 +48,7 @@ class _OtherDocumentsPageState extends State<OtherDocumentsPage> {
                     child: Text(t.noOtherDocuments,
                         style: TextStyle(
                             fontStyle:
-                                FontStyle.italic))) //Inga övriga dokument
+                                FontStyle.italic))) // No other documents
         );
   }
 
@@ -54,14 +57,15 @@ class _OtherDocumentsPageState extends State<OtherDocumentsPage> {
     return Container(
         decoration: BoxDecoration(
             border: Border(
-          bottom: BorderSide(color: Colors.grey[400]!),
+          bottom: BorderSide(color: Theme.of(context).colorScheme.onSecondary.withOpacity(0.7)),
         )),
         child: InkWell(
           onTap: () => openDocument(document),
           child: ListTile(
               title: Text(document.document_name == null
                   ? t.otherTitleMissing
-                  : document.document_name!)),
+                  : document.document_name!),
+              textColor: Theme.of(context).textTheme.titleMedium?.color),
         ));
   }
 

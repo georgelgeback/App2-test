@@ -47,9 +47,12 @@ class _SettingsPageState extends State<SettingsPage> {
     };
     if (user == null) {
       return Scaffold(
-          appBar: AppBar(title: Text(t.otherAccount)),
+          appBar: AppBar(
+            title: Text(t.otherAccount),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).textTheme.titleLarge?.color,),
           body: Center(
-              child: CircularProgressIndicator(color: Colors.orange[600])));
+              child: CircularProgressIndicator(color: Theme.of(context).colorScheme.onBackground)));
     }
     return WillPopScope(
       onWillPop: () async {
@@ -60,6 +63,8 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(t.otherAccount),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 16),
@@ -68,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   onTap: () => _save(),
                   child: Text(
                     t.settingsSave,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.titleLarge?.color),
                   ),
                 ),
               ),
@@ -194,10 +199,11 @@ class _SettingsPageState extends State<SettingsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(displayText, style: TextStyle(fontSize: 16)),
+          Text(displayText, style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.titleMedium?.color)),
           TextField(
-            controller: TextEditingController(text: fieldText),
+            controller: TextEditingController(text: fieldText,),
             decoration: InputDecoration(border: UnderlineInputBorder()),
+            style: TextStyle(color: Theme.of(context).textTheme.titleMedium?.color),
             keyboardType: num ? TextInputType.number : null,
             onChanged: (change) {
               modUser(change);
@@ -248,7 +254,18 @@ class _SettingsPageState extends State<SettingsPage> {
         return Checkbox(
           checkColor: Colors.white,
           fillColor:
-              MaterialStateProperty.resolveWith((states) => Colors.orange[600]),
+              MaterialStateProperty.resolveWith(
+                (states) {
+                  if (states.contains(MaterialState.selected)) {
+                  // Color when the checkbox is checked
+                  return Theme.of(context).colorScheme.primary; // Change this to the desired inactive color
+                  } else {
+                  // Color when the checkbox is unchecked
+                  return Theme.of(context).colorScheme.background;
+                  }
+                },
+              ),
+          side: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
           value: value,
           onChanged: (bool? change) {
             setChildState(() {
@@ -267,7 +284,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return SizedBox(
       width: double.infinity,
       child: Container(
-        color: Colors.grey[200],
+        color: Theme.of(context).colorScheme.tertiary,
         padding: EdgeInsets.fromLTRB(12, 28, 12, 28),
         child: Text(displayText),
       ),
@@ -285,9 +302,11 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   String _makeTimestamp() {
-    DateTime memberSince = DateTime.parse(user!.member_at!);
+    //TODO: TESTING ONLY SO THAT IT ACTUALLY WORKS! (not a testing member)
+    // Reset this later
+    //DateTime memberSince = DateTime.parse(user.member_at);
     String locale = Localizations.localeOf(context).toString();
-
+    DateTime memberSince = DateTime.parse("2021-08-09 19:50");
     return DateFormat("HH:mm, d MMM y", locale).format(memberSince);
   }
 
@@ -296,6 +315,8 @@ class _SettingsPageState extends State<SettingsPage> {
     return (BuildContext context) => SimpleDialog(
           title: Text(t.settingsSaving,
               style: Theme.of(context).textTheme.headlineSmall),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Colors.transparent,
           children: [
             Column(
               children: [
@@ -311,19 +332,21 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget Function(BuildContext) _failedPopup() {
     var t = AppLocalizations.of(context)!;
     return (BuildContext context) => SimpleDialog(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Colors.transparent,
           title: Text(t.settingsWarning,
-              style: Theme.of(context).textTheme.headlineSmall),
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Theme.of(context).colorScheme.error)),
           children: [
             Center(
               child: Padding(
                 padding: EdgeInsets.all(8),
-                child: Text(t.settingsWarningText),
+                child: Text(t.settingsWarningText,),
               ),
             ),
             Align(
               alignment: Alignment.bottomRight,
               child: IconButton(
-                icon: Icon(Icons.check, color: Colors.grey[800]),
+                icon: Icon(Icons.check, color: Theme.of(context).colorScheme.inverseSurface),
                 onPressed: () => Navigator.pop(context),
               ),
             )
@@ -334,6 +357,8 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget Function(BuildContext) _saveOnClosePopup() {
     var t = AppLocalizations.of(context)!;
     return (BuildContext context) => SimpleDialog(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Colors.transparent,
           title: Text(t.settingsUnsaved,
               style: Theme.of(context).textTheme.headlineSmall),
           children: [

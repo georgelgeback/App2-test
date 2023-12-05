@@ -60,8 +60,15 @@ void main() async {
     '/wordlist': (context) => WordListPage(),
   };
 
-  locator<ThemeService>().theme = fsekTheme;
-  locator<ThemeService>().backgroundColors = fsekBackground;
+  // Set up the theme early on to prevent graphical glitches (?)
+  if (ThemeMode.system == ThemeMode.light) {
+    locator<ThemeService>().theme = fsekTheme;
+    locator<ThemeService>().backgroundColors = fsekBackground;
+  } else if (ThemeMode.system == ThemeMode.dark){
+    locator<ThemeService>().theme = fsekThemeDark;
+    locator<ThemeService>().backgroundColors = fsekBackgroundDark;
+  }
+
   locator<ThemeService>().loginIcon = [
     CircleAvatar(
       radius: 40.0,

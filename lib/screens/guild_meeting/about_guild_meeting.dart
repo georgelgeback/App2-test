@@ -11,6 +11,8 @@ class AboutGuildMeetingPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(t.guildMeetingTitle),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
         ),
         body: Container(
             padding: EdgeInsets.all(8),
@@ -23,12 +25,12 @@ class AboutGuildMeetingPage extends StatelessWidget {
                   SizedBox(height: 8),
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color),
                       children: <TextSpan>[
                         TextSpan(text: t.guildMeetingNominateOne, style: TextStyle(height: 1.5)),
                         TextSpan(
                           text: " ${t.guildMeetingNominateTwo} ",
-                          style: TextStyle(height: 1.5, color: Colors.orange[600]),
+                          style: TextStyle(height: 1.5, color: Theme.of(context).colorScheme.secondary),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
                               launchUrl(Uri.parse('https://fsektionen.se/val'));
@@ -37,7 +39,7 @@ class AboutGuildMeetingPage extends StatelessWidget {
                         TextSpan(text: t.guildMeetingSendMotionOne, style: TextStyle(height: 1.5)),
                         TextSpan(
                           text: t.guildMeetingSendMotionTwo,
-                          style: TextStyle(height: 1.5, color: Colors.orange[600]),
+                          style: TextStyle(height: 1.5, color: Theme.of(context).colorScheme.secondary),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
                               launchUrl(Uri.parse('mailto:sekreterare@fsektionen.se'));
@@ -56,7 +58,7 @@ class AboutGuildMeetingPage extends StatelessWidget {
                             style: TextStyle(height: 1.5)),
                         TextSpan(
                           text: "${t.guildMeetingBoard}",
-                          style: TextStyle(height: 1.5, color: Colors.orange[600]),
+                          style: TextStyle(height: 1.5, color: Theme.of(context).colorScheme.secondary),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
                               launchUrl(Uri.parse('mailto:styrelsen@fsektionen.se'));
@@ -76,7 +78,7 @@ class AboutGuildMeetingPage extends StatelessWidget {
                   SizedBox(height: 8),
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color),
                       children: <TextSpan>[
                         TextSpan(
                             text: "${t.guildMeetingAboutTwo}"
@@ -84,7 +86,7 @@ class AboutGuildMeetingPage extends StatelessWidget {
                             style: TextStyle(height: 1.5)),
                         TextSpan(
                           text: " ${t.guildMeetingBoard} ",
-                          style: TextStyle(height: 1.5, color: Colors.orange[600]),
+                          style: TextStyle(height: 1.5, color: Theme.of(context).colorScheme.secondary),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
                               launchUrl(Uri.parse('mailto:styrelsen@fsektionen.se'));
@@ -93,7 +95,7 @@ class AboutGuildMeetingPage extends StatelessWidget {
                         TextSpan(text: "${t.guildMeetingAboutFive}", style: TextStyle(height: 1.5)),
                         TextSpan(
                           text: "${t.guildMeetingAboutSix}",
-                          style: TextStyle(height: 1.5, color: Colors.orange[600]),
+                          style: TextStyle(height: 1.5, color: Theme.of(context).colorScheme.secondary),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
                               launchUrl(Uri.parse('https://fsektionen.se/kontakter'));
@@ -104,7 +106,7 @@ class AboutGuildMeetingPage extends StatelessWidget {
                             style: TextStyle(height: 1.5)),
                         TextSpan(
                           text: "${t.guildMeetingAboutNine} ",
-                          style: TextStyle(height: 1.5, color: Colors.orange[600]),
+                          style: TextStyle(height: 1.5, color: Theme.of(context).colorScheme.secondary),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
                               launchUrl(Uri.parse('mailto:sekreterare@fsektionen.se'));
@@ -119,12 +121,12 @@ class AboutGuildMeetingPage extends StatelessWidget {
                   SizedBox(height: 8),
                   RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color),
                       children: <TextSpan>[
                         TextSpan(text: "${t.guildMeetingElectionInfoTwo}", style: TextStyle(height: 1.5)),
                         TextSpan(
                           text: "${t.guildMeetingElectionInfoThree} ",
-                          style: TextStyle(height: 1.5, color: Colors.orange[600]),
+                          style: TextStyle(height: 1.5, color: Theme.of(context).colorScheme.secondary),
                           recognizer: new TapGestureRecognizer()
                             ..onTap = () {
                               launchUrl(Uri.parse('https://fsektionen.se/val'));
